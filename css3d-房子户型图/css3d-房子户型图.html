@@ -1,0 +1,243 @@
+<!--
+ * @Author: duiying
+ * @CreateDate: Do not edit
+ * @LastEditors: duiying
+ * @LastEditTime: 2021-05-16 09:41:00
+ * @Description: ...
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>css3d-房子户型图</title>
+  <style>
+		html, body{background: #e8e8e8;width: 100%;height: 100%;}
+		* {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			box-sizing: border-box;
+		}
+		.container {
+			width: 500px;
+			height: 500px;
+			margin: 100px auto;
+		}
+		.box {
+			perspective: 2000px;
+			perspective-origin: 50% 50%;
+			position: relative;
+		}
+		.content {
+			width: 500px;
+			height: 500px;
+			transform-style: preserve-3d;
+			transform: rotateX(-50deg) rotateY(0deg);
+		}
+		.content div {
+			position: absolute;
+		}
+
+		.floor {
+			transform: rotateX(-90deg);
+			background-color: #EBC198;
+			width: 800px;
+			height: 500px;
+			top: 250px;
+			left: -150px;
+		}
+
+		.outerWall_1, .outerWall_2 {
+			transform: translateZ(250px);
+			background-color:#fff;
+			height: 100px;
+			top: 400px;
+		}
+		.outerWall_1 {
+			width: 340px;
+			left: -150px;
+		}
+		.outerWall_2 {
+			width: 380px;	transform-style: preserve-3d;
+			left: 270px;
+		}
+		.outerWall_2::after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #fff;
+			transform: translateZ(-5px);
+		}
+		.outerWall_2::before {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			height: 6px;
+			background-color: #fff;
+			transform: rotateX(90deg) translateY(-3px);
+		}
+
+		.outerWall_3 {
+			transform: rotateY(180deg) translateZ(250px);
+			background-color:#cacaca;
+			width: 800px;
+			height: 200px;
+			top: 300px;
+			left: -150px;
+		}
+		.outerWall_4 {
+			transform: rotateY(-90deg);
+			background-color: #cacaca;
+			width: 500px;
+			height: 200px;
+			top: 300px;
+			left: -400px;
+		}
+		.outerWall_5 {
+			transform: rotateY(-90deg);
+			background-color: #fff;
+			width: 500px;
+			height: 100px;
+			top: 400px;
+			left: 400px;
+		}
+
+		.kitchen_1, .toilet_1 {
+			background-color: #fff;
+			width: 210px;
+			height: 100px;
+			left: -100px;
+			top: 400px;
+		}
+		.kitchen_1 {
+			transform: rotateY(90deg) translateX(145px);
+		}
+		.kitchen_2 {
+			transform: rotateY(180deg) translateZ(40px);
+			background-color:#fff;
+			width: 100px;
+			height: 100px;
+			top: 400px;
+			left: -150px;
+		}
+		.toilet_1 {
+			transform: rotateY(90deg) translateX(-145px);
+		}
+		.toilet_2 {
+			transform: rotateY(180deg) translateZ(-40px);
+			background-color:#fff;
+			width: 100px;
+			height: 100px;
+			top: 400px;
+			left: -150px;
+		}
+
+		.bedroom_1 {
+			transform: rotateY(180deg) translateZ(40px);
+			background-color:#fff;
+			width: 60px;
+			height: 100px;
+			top: 400px;
+			left: 4px;
+		}
+		.bedroom_2 {
+			transform: rotateY(180deg) translateZ(40px);
+			background-color:#fff;
+			width: 380px;
+			height: 100px;
+			top: 400px;
+			left: 130px;
+		}
+		.bedroom_3 {
+			transform: rotateY(180deg) translateZ(40px);
+			background-color: #fff;
+			width: 75px;
+			height: 100px;
+			top: 400px;
+			left: 575px;
+		}
+		.bedroom_4 {
+			transform: rotateY(90deg) translateX(145px);
+			background-color: #fff;
+			width: 210px;
+			height: 100px;
+			left: 200px;
+			top: 400px;
+		}
+  </style>
+</head>
+<body>
+  
+<div class="container" id="container">
+  <div class="box">
+		<div class="content" id="content">
+			<div class="floor"></div>
+			<div class="outerWall_1"></div>
+			<div class="outerWall_2"></div>
+			<div class="outerWall_3"></div>
+			<div class="outerWall_4"></div>
+			<div class="outerWall_5"></div>
+			<div class="kitchen_1"></div>
+			<div class="kitchen_2"></div>
+			<div class="toilet_1"></div>
+			<div class="toilet_2"></div>
+			<div class="bedroom_1"></div>
+			<div class="bedroom_2"></div>
+			<div class="bedroom_3"></div>
+			<div class="bedroom_4"></div>
+		</div>
+  </div>
+</div>
+
+<script>
+	let isClick = false
+	let body = document.body
+	let content = document.getElementById('content')
+	let x = 0
+	let y = 0
+	let rotateX = -50
+	let rotateY = 0
+
+	function mousemove(e) {
+		if (!isClick) return
+
+		let x2 = (rotateX + (e.x - x)) * 0.6
+		let y2 = rotateY + (e.y - y)
+		if (x2 >= 0) x2 = 0
+		if (x2 <= -60) x2 = -60
+
+		// content.style.transform = 'rotateX(' + x2 + 'deg) rotateY(' + y2 + 'deg)'
+		content.style.transform = 'rotateX(-50deg) rotateY(' + y2 + 'deg)'
+	}
+
+	function mouseup(e) {
+		isClick = false
+
+		let x2 = e.x - x
+		let y2 = e.y - y
+		rotateX = (rotateX + x2) * 0.6
+		rotateY = rotateY + y2
+		if (x2 >= 0) rotateX = 0
+		if (x2 <= -60) rotateX = -60
+	}
+	
+	function mousedown(e) {
+		isClick = true
+		x = e.x
+		y = e.y
+	}
+	
+	body.addEventListener('mousedown', mousedown)
+	body.addEventListener('mousemove', mousemove)
+	body.addEventListener('mouseup', mouseup)
+</script>
+
+</body>
+</html>

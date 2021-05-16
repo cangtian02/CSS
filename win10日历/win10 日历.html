@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+</head>
+<style>
+*{margin: 0;padding: 0;}
+li{list-style: none;}
+
+img{margin: 100px auto;display: block;}
+
+.box {width: 122px;height: 122px;overflow: hidden;margin: 100px auto;background: #0F0F0F;position: relative;}
+
+.box .border, .box .content{position: absolute;left: 0;top: 0;right: 0;bottom: 0;display: flex;flex-wrap: wrap;justify-content: space-between;align-items: center;}
+
+.box .border li, .box .content li{width: 36px;height: 36px;}
+
+.box .border{z-index: 1;}
+  .box .border::after{content: '';width: 130px;height: 130px;position: absolute;left: -34px;top: -34px;border-radius: 100%;border: 30px solid #0F0F0F;background: radial-gradient(at center, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, .5) 50%, rgba(0, 0, 0, 1) 95%);}
+  .box .border li{border: 2px solid #4F5759;}
+
+.box .content{z-index: 2;}
+  .box .content li{font-size: 12px;color: #fff;text-align: center;line-height: 36px;border: 2px solid transparent;}
+  .box .content li.active{border: 2px solid #838383;background: #363636;}
+</style>
+<body>
+<div class="box">
+  <ul class="border">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <ul class="content">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li class="active">5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+    <li>9</li>
+  </ul>
+</div>
+
+<img src="./1.png" />
+</body>
+</html>
